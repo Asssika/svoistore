@@ -67,7 +67,7 @@ a { color: inherit; text-decoration: none; }
 /* ====================================================== */
 header.main { background: #fff; border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 50; transition: box-shadow .3s ease; }
 header.main.scrolled { box-shadow: 0 10px 30px -16px rgba(30,41,59,.25); }
-.head-row { display: flex; align-items: center; gap: 1.8rem; padding: 1rem 1.5rem 0.85rem; max-width: 80rem; margin: 0 auto; }
+.head-row { display: flex; align-items: center; gap: 1.8rem; padding: 0.45rem 1.5rem 0.4rem; max-width: 80rem; margin: 0 auto; }
 
 /* logo */
 .logo { display: inline-flex; align-items: center; flex-shrink: 0; color: var(--text); margin-left: .9rem; }
@@ -226,7 +226,7 @@ header.main.scrolled { box-shadow: 0 10px 30px -16px rgba(30,41,59,.25); }
 .card-img { position: relative; aspect-ratio: 1/.95; display: grid; place-items: center; background: #fff; overflow: hidden; }
 .card-img svg { width: 64px; height: 64px; stroke: var(--green); opacity: .55; transition: transform .5s var(--ease), opacity .25s ease; }
 .card:hover .card-img svg { transform: scale(1.12) rotate(-3deg); opacity: .85; }
-.card-img img.p-photo { width: 100%; height: 100%; object-fit: contain; padding: 11%; transform: translateY(var(--ny,0)); transition: transform .5s var(--ease); }
+.card-img img.p-photo { width: 100%; height: 100%; object-fit: contain; padding: var(--pad,11%); transform: translateY(var(--ny,0)); transition: transform .5s var(--ease); }
 .card:hover .card-img img.p-photo { transform: translateY(var(--ny,0)) scale(1.04); }
 .slide .visual .hero-photo { width: 100%; max-width: 440px; aspect-ratio: 1/.92; object-fit: contain; position: relative; z-index: 2; }
 .p-badge { position: absolute; top: .8rem; left: .8rem; font-size: .7rem; font-weight: 800; padding: .3rem .6rem; border-radius: 8px; background: var(--green); color: #fff; z-index: 2; }
@@ -618,8 +618,8 @@ const P = [
   {b:'Apple',n:'Apple Watch Series 11 42 мм',price:27926,old:0,badge:'Хит',sale:false,icon:'watch',img:'apple-watch-11.jpg',date:'09.2025',color:'Тёмная ночь',hex:'#2a2a2a'},
   {b:'Xiaomi',n:'Xiaomi 17 Ultra 16/512 ГБ',price:86708,old:0,badge:'',sale:false,icon:'phone',img:'xiaomi-17-ultra.jpg',date:'2025',color:'Чёрный',hex:'#1f1f1f'},
   {b:'Sony',n:'PlayStation 5 Slim',price:50236,old:0,badge:'',sale:false,icon:'pad',img:'ps5-slim.jpg',date:'2024',color:'Белый',hex:'#ededed'},
-  {b:'Dyson',n:'Пылесос V16 Piston Animal',price:96699,old:0,badge:'Новинка',sale:false,icon:'vac',img:'dyson-v16.png',date:'2025',color:'Никель / синий',hex:'#4a6b8a'},
-  {b:'Dyson',n:'Стайлер Airwrap i.d. Long',price:38305,old:42990,badge:'−11%',sale:true,icon:'fan',img:'dyson-airwrap-id.png',date:'2024',color:'Никель',hex:'#b9b2a6'},
+  {b:'Dyson',n:'Пылесос V16 Piston Animal',price:96699,old:0,badge:'Новинка',sale:false,icon:'vac',img:'dyson-v16.png',date:'2025',color:'Никель / синий',hex:'#4a6b8a',ny:'-14%'},
+  {b:'Dyson',n:'Стайлер Airwrap i.d. Long',price:38305,old:42990,badge:'−11%',sale:true,icon:'fan',img:'dyson-airwrap-id.png',date:'2024',color:'Никель',hex:'#b9b2a6',ny:'-14%'},
 ];
 const I = {
   phone:'<rect x="7" y="2" width="10" height="20" rx="2.5"/><line x1="10.5" y1="19" x2="13.5" y2="19"/>',
@@ -635,7 +635,7 @@ const cardHTML = p=>`
     <div class="card-img">
       ${p.badge?`<span class="p-badge ${p.sale?'sale':''}">${p.badge}</span>`:''}
       <button class="heart" type="button" aria-label="В избранное"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M12 21s-7-4.5-9.5-9A5 5 0 0 1 12 6a5 5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9z"/></svg></button>
-      <img class="p-photo" src="images/${p.img}"${p.ny?` style="--ny:${p.ny}"`:''} alt="${p.n}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <img class="p-photo" src="images/${p.img}"${(p.ny||p.pad)?` style="${p.ny?`--ny:${p.ny};`:''}${p.pad?`--pad:${p.pad};`:''}"`:''} alt="${p.n}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
       <svg class="p-fallback" fill="none" viewBox="0 0 24 24" stroke-width="1.2" style="display:none">${I[p.icon]}</svg>
       <div class="quick"><button class="btn btn-primary addcart" type="button" data-price="${p.price}" data-name="${p.n}" data-img="${p.img}">В корзину</button></div>
     </div>
