@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>СВОИ — оригинальная техника</title>
+<meta name="description" content="Оригинальная техника Apple, Samsung, Dyson, Xiaomi. Доставка по России, Trade In, рассрочка 0%.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&family=Unbounded:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ===== СВОИ · real-layout redesign · green palette ===== */
+:root {
+  --green: #20554D;          /* primary / nav */
+  --green-2: #2A6E62;        /* hover */
+  --green-3: #34897A;        /* bright accent */
+  --green-soft: #EAF2EF;
+  --blue: #2D7FF9;           /* secondary */
+  --blue-2: #1E68D8;
+  --bg: #F8FAFC;
+  --card: #FFFFFF;
+  --text: #1E293B;
+  --muted: #64748B;
+  --line: #E5EAF0;
+  --radius: 16px;
+  --ease: cubic-bezier(.2,.7,.2,1);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: 'Onest', sans-serif; font-size: 15.5px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+h1, h2, h3 { font-family: 'Unbounded', sans-serif; font-weight: 700; letter-spacing: -.035em; line-height: 1.02; }
+a { color: inherit; text-decoration: none; }
+.wrap { max-width: 80rem; margin: 0 auto; padding: 0 1.5rem; }
+:focus-visible { outline: 3px solid var(--green-3); outline-offset: 2px; border-radius: 6px; }
+
+/* ---------- buttons (animated) ---------- */
+.btn { position: relative; overflow: hidden; display: inline-flex; align-items: center; justify-content: center; gap: .5rem; cursor: pointer; font-family: 'Onest'; font-weight: 700; font-size: .94rem; letter-spacing: -.01em; padding: .9rem 1.7rem; border-radius: 12px; border: none; transition: transform .18s var(--ease), box-shadow .25s var(--ease), background .25s ease; }
+.btn:active { transform: scale(.96); }
+.btn-primary { background: linear-gradient(120deg, var(--green), var(--green-2)); color: #fff; }
+.btn-primary:hover { box-shadow: 0 12px 28px -8px rgba(32,85,77,.5); transform: translateY(-2px); }
+.btn-blue { background: linear-gradient(120deg, var(--blue), var(--blue-2)); color: #fff; }
+.btn-blue:hover { box-shadow: 0 12px 28px -8px rgba(45,127,249,.5); transform: translateY(-2px); }
+.btn-ghost { background: var(--green-soft); color: var(--green); }
+.btn-ghost:hover { background: #dcebe6; }
+/* shine sweep */
+.btn-primary::after, .btn-blue::after { content:''; position:absolute; inset:0; transform: translateX(-130%); background: linear-gradient(110deg, transparent 35%, rgba(255,255,255,.4) 50%, transparent 65%); }
+.btn-primary:hover::after, .btn-blue:hover::after { transform: translateX(130%); transition: transform .7s ease; }
+
+/* ====================================================== */
+/* TOP UTILITY BAR                                         */
+/* ====================================================== */
+.util { border-bottom: 1px solid var(--line); background: #fff; font-size: .82rem; }
+.util .row { display: flex; align-items: center; justify-content: center; gap: 1.6rem; padding: .55rem 1.5rem; max-width: 80rem; margin: 0 auto; position: relative; }
+.util a { color: var(--muted); transition: color .2s ease; position: relative; }
+.util a::after { content:''; position:absolute; left:0; bottom:-3px; height:2px; width:0; background:var(--green); transition: width .25s var(--ease); }
+.util a:hover { color: var(--green); } .util a:hover::after { width: 100%; }
+.util-contact { position: absolute; right: 1.5rem; display: flex; align-items: center; gap: .8rem; }
+.util-contact a { color: var(--text); font-weight: 700; }
+.util-contact a.tel { color: var(--green); }
+.util-contact a:hover { color: var(--green); }
+.util-contact a::after { display: none; }
+.util-contact .sep { color: var(--line); }
+@media (max-width: 1024px) { .util { display: none; } }
+
+/* ====================================================== */
+/* WHITE HEADER LINE (logo · search · icons · price · phone) */
+/* ====================================================== */
+header.main { background: #fff; border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 50; transition: box-shadow .3s ease; }
+header.main.scrolled { box-shadow: 0 10px 30px -16px rgba(30,41,59,.25); }
+.head-row { display: flex; align-items: center; gap: 1.8rem; padding: 1rem 1.5rem 0.85rem; max-width: 80rem; margin: 0 auto; }
+
+/* logo */
+.logo { display: inline-flex; align-items: center; flex-shrink: 0; color: var(--text); margin-left: .9rem; }
+.logo .logo-mark { height: 93px; width: auto; display: block; }
+
+/* search */
+.search { flex: 1; display: flex; align-items: center; background: var(--bg); border: 2px solid var(--line); border-radius: 99px; padding: .15rem .15rem .15rem 1.3rem; transition: border-color .2s ease, box-shadow .2s ease; }
+.search:focus-within { border-color: var(--green-3); box-shadow: 0 0 0 4px rgba(52,137,122,.14); }
+.search input { flex: 1; border: none; background: none; outline: none; font-family: 'Onest'; font-size: .95rem; color: var(--text); }
+.search button { width: 46px; height: 46px; border-radius: 50%; border: none; background: linear-gradient(120deg, var(--green), var(--green-2)); cursor: pointer; display: grid; place-items: center; transition: transform .2s var(--ease), box-shadow .25s ease; }
+.search button:hover { transform: scale(1.06); box-shadow: 0 8px 20px -6px rgba(32,85,77,.5); }
+.search button svg { width: 19px; height: 19px; stroke: #fff; }
+
+/* icon cluster */
+.cluster { display: flex; align-items: center; gap: 1.3rem; flex-shrink: 0; }
+.ic-btn { position: relative; background: none; border: none; cursor: pointer; width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center; transition: background .2s ease, transform .2s var(--ease); }
+.ic-btn:hover { background: var(--green-soft); transform: translateY(-2px); }
+.ic-btn svg { width: 23px; height: 23px; stroke: var(--text); transition: stroke .2s ease; }
+.ic-btn:hover svg { stroke: var(--green); }
+.ic-btn .badge { position: absolute; top: -2px; right: -2px; min-width: 19px; height: 19px; border-radius: 99px; background: var(--green); color: #fff; font-size: .68rem; font-weight: 800; display: grid; place-items: center; padding: 0 4px; }
+.ic-btn.fav:hover svg { stroke: #ef5350; }
+@keyframes pulse { 0%,100%{ box-shadow: 0 0 0 0 rgba(32,85,77,.5);} 50%{ box-shadow: 0 0 0 6px rgba(32,85,77,0);} }
+.badge.pulsing { animation: pulse 1.4s ease; }
+.price { font-weight: 800; font-size: 1rem; display: flex; align-items: center; gap: .35rem; cursor: pointer; white-space: nowrap; }
+.price svg { width: 16px; height: 16px; stroke: var(--muted); transition: transform .25s ease; }
+.price:hover svg { transform: translateY(2px); }
+.cart-wrap.has-items:hover .price svg { transform: rotate(180deg); }
+.account { display: inline-flex; align-items: center; gap: .6rem; cursor: pointer; font-family: 'Onest'; font-weight: 700; font-size: 1.02rem; color: #fff; background: linear-gradient(120deg, var(--green), var(--green-2)); border: none; padding: .75rem 1.5rem; border-radius: 13px; white-space: nowrap; transition: transform .18s var(--ease), box-shadow .25s ease; }
+.account:hover { transform: translateY(-2px); box-shadow: 0 12px 26px -8px rgba(32,85,77,.5); }
+.account svg { width: 21px; height: 21px; stroke: #fff; }
+.account .who { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.1; }
+.account .who small { font-weight: 500; font-size: .72rem; opacity: .85; }
+/* mini-cart dropdown */
+.cart-wrap { position: relative; display: flex; align-items: center; gap: 1.3rem; }
+.cart-menu { position: absolute; top: calc(100% + .7rem); right: 0; z-index: 60; width: 344px; background: #fff; border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 26px 54px -20px rgba(30,41,59,.3); padding: .8rem; opacity: 0; visibility: hidden; transform: translateY(10px); transition: opacity .2s var(--ease), transform .2s var(--ease), visibility .2s; pointer-events: none; }
+.cart-menu::before { content: ''; position: absolute; top: -.7rem; left: 0; right: 0; height: .7rem; }
+.cart-wrap.has-items:hover .cart-menu, .cart-wrap.has-items:focus-within .cart-menu { opacity: 1; visibility: visible; transform: none; pointer-events: auto; }
+.cart-items { display: grid; gap: .3rem; max-height: 320px; overflow-y: auto; }
+.cart-item { display: flex; align-items: center; gap: .7rem; padding: .5rem; border-radius: 10px; transition: background .15s ease; }
+.cart-item:hover { background: var(--green-soft); }
+.ci-img { width: 46px; height: 46px; border-radius: 8px; background: #fff; border: 1px solid var(--line); flex-shrink: 0; overflow: hidden; display: grid; place-items: center; }
+.ci-img img { width: 100%; height: 100%; object-fit: contain; padding: 5px; }
+.ci-info { flex: 1; min-width: 0; }
+.ci-name { font-size: .82rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ci-qty { font-size: .74rem; color: var(--muted); }
+.ci-price { font-size: .84rem; font-weight: 700; white-space: nowrap; }
+.cart-foot { border-top: 1px solid var(--line); margin-top: .6rem; padding-top: .7rem; display: grid; gap: .6rem; }
+.cart-total { display: flex; justify-content: space-between; align-items: center; font-size: .9rem; color: var(--muted); }
+.cart-total b { color: var(--text); font-size: 1.05rem; font-weight: 800; }
+.cart-foot .btn { width: 100%; }
+@media (max-width: 1024px) { .cart-menu { display: none; } }
+
+/* ====================================================== */
+/* GREEN NAV BAR (bigger)                                  */
+/* ====================================================== */
+.greenbar { background: var(--green); position: relative; z-index: 40; }
+.greenbar .row { display: flex; justify-content: center; align-items: stretch; column-gap: 3rem; height: 76px; max-width: 80rem; margin: 0 auto; padding: 0 1.25rem; }
+.nav-grp { display: flex; align-items: stretch; gap: .25rem; white-space: nowrap; }
+.nav-grp.left { justify-self: start; }
+.nav-grp.center { justify-self: center; }
+.nav-grp.right { justify-self: end; }
+.greenbar a { position: relative; display: inline-flex; align-items: center; gap: .45rem; color: #fff; font-weight: 700; font-size: 1.16rem; padding: 4px 1.25rem; border-radius: 0; transition: background .2s ease, color .2s ease, padding .2s var(--ease); }
+.greenbar a:hover { background: rgba(255,255,255,.16); padding-top: 0; padding-bottom: 8px; }
+.greenbar a.hot { color: #FFE08A; }
+.greenbar .nav-grp.center a { font-weight: 800; }
+.greenbar a svg { width: 16px; height: 16px; stroke: currentColor; transition: transform .25s ease; opacity: .8; }
+.greenbar a:hover svg { transform: rotate(180deg); }
+/* hover dropdown window */
+.nav-item { position: relative; display: flex; align-items: stretch; }
+.menu { position: absolute; top: 100%; left: 0; z-index: 60; background: #fff; color: var(--text); border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 26px 54px -20px rgba(20,48,43,.35); padding: .9rem; min-width: 250px; opacity: 0; visibility: hidden; transform: translateY(12px); transition: opacity .22s var(--ease), transform .22s var(--ease), visibility .22s; pointer-events: none; }
+.nav-item:hover .menu, .nav-item:focus-within .menu { opacity: 1; visibility: visible; transform: none; pointer-events: auto; }
+.menu.mega { display: grid; grid-template-columns: repeat(3, minmax(180px, 1fr)); gap: 0 1.4rem; min-width: 620px; }
+.menu-col { display: flex; flex-direction: column; }
+.menu-h { font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 800; padding: .2rem .75rem .45rem; }
+.greenbar .menu a { display: flex; align-items: center; gap: .7rem; color: var(--text); font-weight: 600; font-size: .95rem; padding: .6rem .75rem; border-radius: 10px; transition: background .18s ease, color .18s ease; white-space: nowrap; }
+.greenbar .menu a:hover { background: var(--green-soft); color: var(--green); }
+.greenbar .menu a svg { width: 20px; height: 20px; flex-shrink: 0; stroke: var(--green); opacity: .85; transform: none; }
+.greenbar .menu a:hover svg { transform: none; }
+/* second-level flyout submenu */
+.greenbar .menu .chev { width: 15px; height: 15px; stroke: var(--muted); opacity: .7; margin-left: auto; transition: transform .2s ease, stroke .2s ease; }
+.m2 { position: relative; }
+.m2:hover > a { background: var(--green-soft); color: var(--green); }
+.m2:hover > a .chev { stroke: var(--green); transform: translateX(2px); }
+.submenu { position: absolute; left: 100%; top: -.7rem; z-index: 70; background: #fff; border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 26px 54px -20px rgba(20,48,43,.35); padding: .7rem; min-width: 220px; opacity: 0; visibility: hidden; transform: translateX(10px); transition: opacity .2s var(--ease), transform .2s var(--ease), visibility .2s; pointer-events: none; }
+.m2:hover > .submenu { opacity: 1; visibility: visible; transform: none; pointer-events: auto; }
+.greenbar .menu a.menu-promo { flex-direction: column; align-items: flex-start; justify-content: flex-end; background: linear-gradient(150deg, var(--green), var(--green-2)); color: #fff; border-radius: 14px; padding: 1.1rem; gap: .25rem; }
+.greenbar .menu a.menu-promo:hover { color: #fff; box-shadow: 0 14px 28px -10px rgba(32,85,77,.6); }
+.greenbar .menu a.menu-promo svg { stroke: #fff; width: 26px; height: 26px; }
+.greenbar .menu a.menu-promo b { font-size: 1.05rem; }
+.greenbar .menu a.menu-promo span { font-size: .8rem; opacity: .9; font-weight: 500; }
+@media (max-width: 1024px) { .menu { display: none; } }
+@media (max-width: 1024px) { .greenbar { overflow-x: auto; } .greenbar .row { display: flex; gap: .3rem; } }
+
+/* ====================================================== */
+/* HERO SLIDER                                             */
+/* ====================================================== */
+.hero { padding: 1.6rem 0; }
+.slider { position: relative; border-radius: 24px; overflow: hidden; }
+.slides { display: flex; transition: transform .6s var(--ease); }
+.slide { min-width: 100%; min-height: 460px; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 3.5rem; position: relative; }
+.slide .copy { position: relative; z-index: 2; }
+.slide .kicker { display: inline-block; font-weight: 800; font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; padding: .4rem 1rem; border-radius: 99px; margin-bottom: 1.2rem; }
+.slide h2 { font-size: clamp(2.3rem, 5.2vw, 4.6rem); font-weight: 800; margin-bottom: 1.3rem; letter-spacing: -.045em; }
+.slide p { font-size: 1.12rem; max-width: 36ch; margin-bottom: 2rem; font-weight: 500; }
+.slide .visual { display: grid; place-items: center; position: relative; z-index: 1; }
+.slide .visual svg { width: 60%; max-width: 280px; height: auto; }
+/* slide themes */
+.s1 { background: linear-gradient(120deg, #eef2f3, #e3ece9); color: var(--text); }
+.s1 .kicker { background: var(--text); color: #fff; }
+.s1 .visual svg { stroke: var(--green); }
+.s2 { background: linear-gradient(120deg, var(--green), var(--green-2)); color: #fff; }
+.s2 .kicker { background: #FFE08A; color: var(--green); }
+.s2 p { color: rgba(255,255,255,.85); }
+.s2 .visual svg { stroke: #fff; }
+.s3 { background: linear-gradient(120deg, #e7f0ff, #d9e7ff); color: var(--text); }
+.s3 .kicker { background: var(--blue); color: #fff; }
+.s3 .visual svg { stroke: var(--blue); }
+.slide .glow { position: absolute; width: 380px; height: 380px; border-radius: 50%; right: 6%; top: 50%; transform: translateY(-50%); filter: blur(20px); opacity: .5; }
+.s1 .glow { background: radial-gradient(circle, rgba(52,137,122,.4), transparent 65%); }
+.s2 .glow { background: radial-gradient(circle, rgba(255,224,138,.35), transparent 65%); }
+.s3 .glow { background: radial-gradient(circle, rgba(45,127,249,.3), transparent 65%); }
+.s-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 52px; height: 52px; border-radius: 50%; background: rgba(255,255,255,.85); backdrop-filter: blur(6px); border: 1px solid var(--line); cursor: pointer; display: grid; place-items: center; z-index: 5; transition: transform .2s var(--ease), background .2s ease; }
+.s-arrow:hover { transform: translateY(-50%) scale(1.12); background: #fff; }
+.s-arrow svg { width: 22px; height: 22px; stroke: var(--text); }
+.s-arrow.prev { left: 1.2rem; } .s-arrow.next { right: 1.2rem; }
+.dots { position: absolute; bottom: 1.2rem; left: 50%; transform: translateX(-50%); display: flex; gap: .5rem; z-index: 5; }
+.dots button { width: 9px; height: 9px; border-radius: 99px; border: none; background: rgba(0,0,0,.22); cursor: pointer; transition: width .3s var(--ease), background .3s ease; padding: 0; }
+.dots button.active { width: 26px; background: var(--green); }
+.s2 ~ .dots button.active { background: #FFE08A; }
+
+/* ====================================================== */
+/* CATEGORIES                                              */
+/* ====================================================== */
+.block { padding: 3rem 0; }
+.sec-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1.6rem; flex-wrap: wrap; }
+.sec-head h2 { font-size: clamp(1.6rem, 3.2vw, 2.3rem); }
+.sec-head a { color: var(--green); font-weight: 700; font-size: .92rem; display: inline-flex; align-items: center; gap: .35rem; }
+.sec-head a svg { width: 15px; height: 15px; stroke: currentColor; transition: transform .2s ease; }
+.sec-head a:hover svg { transform: translateX(4px); }
+.cats { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1rem; }
+.cat { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.4rem; text-align: center; cursor: pointer; transition: transform .25s var(--ease), box-shadow .25s ease, border-color .2s ease; }
+.cat:hover { transform: translateY(-5px); box-shadow: 0 18px 36px -20px rgba(30,41,59,.3); border-color: var(--green-3); }
+.cat .ico { width: 56px; height: 56px; margin: 0 auto .9rem; border-radius: 16px; background: var(--green-soft); display: grid; place-items: center; transition: background .25s ease, transform .25s var(--ease); }
+.cat:hover .ico { background: var(--green); transform: rotate(-6deg) scale(1.05); }
+.cat .ico svg { width: 26px; height: 26px; stroke: var(--green); transition: stroke .25s ease; }
+.cat:hover .ico svg { stroke: #fff; }
+.cat p { font-weight: 700; font-size: .9rem; }
+.cat span { color: var(--muted); font-size: .78rem; }
+
+/* ====================================================== */
+/* PRODUCTS (animated)                                    */
+/* ====================================================== */
+.grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; }
+.card { position: relative; background: var(--card); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; transition: transform .3s var(--ease), box-shadow .3s ease, border-color .2s ease; }
+.card:hover { transform: translateY(-6px); box-shadow: 0 28px 56px -26px rgba(30,41,59,.4); border-color: var(--green-3); }
+.card-img { position: relative; aspect-ratio: 1/.95; display: grid; place-items: center; background: #fff; overflow: hidden; }
+.card-img svg { width: 64px; height: 64px; stroke: var(--green); opacity: .55; transition: transform .5s var(--ease), opacity .25s ease; }
+.card:hover .card-img svg { transform: scale(1.12) rotate(-3deg); opacity: .85; }
+.card-img img.p-photo { width: 100%; height: 100%; object-fit: contain; padding: 19%; transform: translateY(var(--ny,0)); transition: transform .5s var(--ease); }
+.card:hover .card-img img.p-photo { transform: translateY(var(--ny,0)) scale(1.05); }
+.slide .visual .hero-photo { width: 100%; max-width: 440px; aspect-ratio: 1/.92; object-fit: contain; position: relative; z-index: 2; }
+.p-badge { position: absolute; top: .8rem; left: .8rem; font-size: .7rem; font-weight: 800; padding: .3rem .6rem; border-radius: 8px; background: var(--green); color: #fff; z-index: 2; }
+.p-badge.sale { background: var(--blue); }
+.heart { position: absolute; top: .7rem; right: .7rem; width: 36px; height: 36px; border-radius: 50%; border: none; background: rgba(255,255,255,.92); cursor: pointer; display: grid; place-items: center; z-index: 2; transition: transform .15s ease, background .2s ease; }
+.heart:hover { background: #fff; }
+.heart:active { transform: scale(.8); }
+.heart svg { width: 18px; height: 18px; stroke: var(--muted); fill: none; transition: fill .2s ease, stroke .2s ease; }
+.heart.on svg { fill: #ef5350; stroke: #ef5350; }
+/* quick add slides up on hover */
+.quick { position: absolute; left: .8rem; right: .8rem; bottom: .8rem; transform: translateY(140%); opacity: 0; z-index: 2; transition: transform .3s var(--ease), opacity .3s ease; }
+.card:hover .quick { transform: none; opacity: 1; }
+.quick .btn { width: 100%; }
+.card-body { padding: 1.1rem 1.2rem 1.3rem; display: flex; flex-direction: column; flex: 1; }
+.card-brand { font-size: .72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.card-body h3 { font-size: .96rem; font-weight: 700; margin: .3rem 0 .55rem; line-height: 1.35; }
+.metrics { list-style: none; margin-bottom: .85rem; display: grid; gap: .32rem; }
+.metrics li { display: flex; justify-content: space-between; align-items: center; font-size: .8rem; }
+.metrics li > span { color: var(--muted); }
+.metrics li > b { font-weight: 600; display: inline-flex; align-items: center; gap: .4rem; }
+.metrics .sw { width: 11px; height: 11px; border-radius: 50%; border: 1px solid rgba(0,0,0,.18); }
+.metrics .ok { color: var(--green-3); }
+.price-row { margin-top: auto; display: flex; align-items: baseline; gap: .55rem; }
+.price-row b { font-size: 1.15rem; font-weight: 800; }
+.price-row s { color: #aab4c0; font-size: .82rem; }
+
+/* ====================================================== */
+/* PROMO STRIP                                             */
+/* ====================================================== */
+.promo-band { background: linear-gradient(125deg, var(--green), var(--green-2)); color: #fff; border-radius: 24px; padding: 3rem; display: grid; grid-template-columns: 1.2fr .8fr; gap: 2.5rem; align-items: center; position: relative; overflow: hidden; }
+.promo-band::before { content:''; position:absolute; width:380px; height:380px; border-radius:50%; background: radial-gradient(circle, rgba(255,224,138,.25), transparent 65%); top:-30%; right:-4%; }
+.promo-band .kicker { display: inline-block; background: #FFE08A; color: var(--green); font-weight: 800; font-size: .76rem; letter-spacing: .08em; text-transform: uppercase; padding: .4rem .9rem; border-radius: 99px; margin-bottom: 1rem; position: relative; }
+.promo-band h2 { font-size: clamp(1.7rem, 3.2vw, 2.4rem); margin-bottom: .9rem; position: relative; }
+.promo-band p { color: rgba(255,255,255,.85); margin-bottom: 1.6rem; position: relative; max-width: 44ch; }
+.psteps { display: grid; gap: .7rem; position: relative; }
+.pstep { display: flex; gap: .9rem; align-items: center; background: rgba(255,255,255,.12); border-radius: 14px; padding: .9rem 1.2rem; }
+.pstep b { font-size: 1.1rem; font-weight: 800; color: #FFE08A; }
+.pstep span { font-size: .92rem; }
+
+/* footer */
+footer.site { background: #14302B; color: rgba(255,255,255,.65); padding: 3rem 0 2rem; margin-top: 3rem; }
+footer.site .top { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 2rem; padding-bottom: 2.4rem; border-bottom: 1px solid rgba(255,255,255,.12); }
+footer.site .logo b { color: #fff; }
+footer.site .logo b span { color: var(--green-3); }
+footer.site h4 { color: #fff; font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 1rem; }
+footer.site ul { list-style: none; display: grid; gap: .7rem; font-size: .88rem; }
+footer.site a:hover { color: #fff; }
+footer.site .bot { padding-top: 1.4rem; font-size: .8rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; color: var(--green-3); }
+
+/* toast */
+.toast { position: fixed; left: 50%; bottom: 1.5rem; transform: translateX(-50%) translateY(160%); background: var(--green); color: #fff; font-weight: 700; font-size: .9rem; padding: .9rem 1.4rem; border-radius: 14px; box-shadow: 0 18px 44px -12px rgba(20,48,43,.55); display: flex; align-items: center; gap: .6rem; z-index: 80; transition: transform .45s cubic-bezier(.34,1.4,.64,1); }
+.toast.show { transform: translateX(-50%) translateY(0); }
+.toast svg { width: 19px; height: 19px; stroke: #FFE08A; }
+
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s var(--ease), transform .6s var(--ease); transition-delay: var(--d,0ms); }
+.reveal.in { opacity: 1; transform: none; }
+
+@media (max-width: 1024px) { .head-row { flex-wrap: wrap; } .phone { order: 3; } }
+@media (max-width: 768px) {
+  .slide { grid-template-columns: 1fr; text-align: center; min-height: 380px; }
+  .slide .visual { display: none; }
+  .cats { grid-template-columns: repeat(3, 1fr); }
+  .grid { grid-template-columns: repeat(2, 1fr); }
+  .promo-band { grid-template-columns: 1fr; padding: 2rem 1.5rem; }
+  .cluster { gap: .8rem; } .phone a { font-size: 1.1rem; }
+}
+@media (max-width: 520px) { .cats { grid-template-columns: repeat(2, 1fr); } .grid { grid-template-columns: 1fr; } .price { display: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .slides { transition: none; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .btn-primary::after, .btn-blue::after { display: none; }
+  html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP UTILITY -->
+<div class="util">
+  <div class="row">
+    <a href="#">О нас</a><a href="#">Доставка</a><a href="#">Гарантия</a><a href="#">Trade In</a>
+    <a href="#">Постоянным клиентам</a><a href="#">Для СМИ и блогеров</a><a href="#">Контакты</a><a href="#">Как нас найти</a>
+    <div class="util-contact">
+      <a class="tel" href="tel:+79936221231">+7 (993) 622-12-31</a>
+    </div>
+  </div>
+</div>
+
+<!-- WHITE HEADER -->
+<header class="main" id="mainHeader">
+  <div class="head-row">
+    <a class="logo" href="#" aria-label="СВОИ — на главную">
+      <svg class="logo-mark" viewBox="0 0 210 120" role="img" aria-label="СВОИ">
+        <path d="M75.1 32.2 A32 32 0 1 0 75.1 71.8" fill="none" stroke="currentColor" stroke-width="22" stroke-linecap="round"/>
+        <circle cx="56" cy="52" r="14" fill="currentColor"/>
+        <circle cx="88" cy="52" r="6" fill="currentColor"/><circle cx="101" cy="52" r="4.8" fill="currentColor"/>
+        <circle cx="114" cy="52" r="3.84" fill="currentColor"/><circle cx="127" cy="52" r="3.07" fill="#34897A"/>
+        <g transform="translate(86 83) scale(0.5 0.648)"><text x="0" y="0" font-family="Onest, sans-serif" font-weight="800" font-size="40" letter-spacing="-1.5" fill="currentColor">ВОИ</text></g>
+      </svg>
+    </a>
+    <form class="search" role="search" onsubmit="event.preventDefault()">
+      <label for="q" class="sr-only" style="position:absolute;left:-9999px">Поиск</label>
+      <input id="q" type="search" placeholder="Поиск по каталогу…">
+      <button type="submit" aria-label="Найти"><svg fill="none" viewBox="0 0 24 24" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></button>
+    </form>
+    <div class="cluster">
+      <button class="ic-btn fav" type="button" aria-label="Избранное">
+        <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path d="M12 21s-7-4.5-9.5-9A5 5 0 0 1 12 6a5 5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9z"/></svg>
+        <span class="badge" id="favBadge">0</span>
+      </button>
+      <div class="cart-wrap" id="cartWrap">
+        <button class="ic-btn" type="button" aria-label="Корзина">
+          <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M6 6 5 3H2"/></svg>
+          <span class="badge" id="cartBadge">0</span>
+        </button>
+        <div class="price" id="cartPrice"><span id="cartSum">0</span> руб. <svg fill="none" viewBox="0 0 24 24" stroke-width="2.2"><path d="m6 9 6 6 6-6"/></svg></div>
+        <div class="cart-menu" id="cartMenu" role="dialog" aria-label="Корзина">
+          <div class="cart-items" id="cartItems"></div>
+          <div class="cart-foot">
+            <div class="cart-total">Итого <b id="cartTotal">0 ₽</b></div>
+            <button class="btn btn-primary" type="button">Открыть корзину</button>
+          </div>
+        </div>
+      </div>
+      <button class="account" type="button" aria-label="Войти в личный кабинет">
+        <svg fill="none" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M5 21a7 7 0 0 1 14 0"/></svg>
+        <span>Войти</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- GREEN NAV (bigger) -->
+<nav class="greenbar" aria-label="Каталог">
+  <div class="row">
+    <div class="nav-grp left">
+      <div class="nav-item">
+        <a href="#catalog">Все товары <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></a>
+        <div class="menu mega">
+          <div class="menu-col">
+            <p class="menu-h">Гаджеты</p>
+            <a href="#catalog"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2.5"/><line x1="10.5" y1="19" x2="13.5" y2="19"/></svg>Смартфоны</a>
+            <a href="#catalog"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/></svg>Ноутбуки</a>
+            <a href="#catalog"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><line x1="10" y1="18" x2="14" y2="18"/></svg>Планшеты</a>
+            <a href="#catalog"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="6"/><path d="M12 9v3l2 1"/></svg>Часы</a>
+          </div>
+          <div class="menu-col">
+            <p class="menu-h">Аудио и ТВ</p>
+            <a href="#catalog"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/></svg>Наушники</a>
+            <a href="#catalog"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="3" width="12" height="18" rx="2"/><circle cx="12" cy="14" r="3"/></svg>Колонки</a>
+            <a href="#catalog"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8"/></svg>ТВ и аудио</a>
+            <a href="#catalog"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="12" x2="10" y2="12"/><line x1="8" y1="10" x2="8" y2="14"/><line x1="15" y1="13" x2="15.01" y2="13"/><line x1="18" y1="11" x2="18.01" y2="11"/><path d="M17.32 6H6.68a4 4 0 0 0-3.995 3.742C2.6 10.42 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.544-.6-5.58-.685-6.258A4 4 0 0 0 17.32 6z"/></svg>Игровые консоли</a>
+          </div>
+          <div class="menu-col">
+            <p class="menu-h">Фото и видео</p>
+            <a href="#catalog"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="12" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 7l1.5-2h5L16 7"/></svg>Фотоаппараты</a>
+            <a href="#catalog"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="12" height="9" rx="2"/><path d="M15 11l5-3v9l-5-3z"/></svg>Экшн-камеры</a>
+            <a href="#catalog"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="6" height="6" rx="1.5"/><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><path d="M7.5 7.5 9 9M16.5 7.5 15 9"/></svg>Дроны</a>
+            <a href="#catalog"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2.5" width="6" height="8.5" rx="1.2"/><path d="M12 11v2.2"/><path d="M9.7 13.2h4.6l-.6 7.3h-3.4z"/></svg>Стабилизаторы</a>
+          </div>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#catalog">Для дома <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></a>
+        <div class="menu">
+          <p class="menu-h">Для дома · Dyson</p>
+          <a href="#catalog"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v9"/><path d="M12 12a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/><path d="M9 5l3-2 3 2"/></svg>Фены и стайлеры</a>
+          <a href="#catalog"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6l1 7H8z"/><path d="M10 10v8a2 2 0 0 0 4 0v-8"/></svg>Пылесосы</a>
+          <a href="#catalog"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="7"/><circle cx="12" cy="13" r="2"/></svg>Роботы-пылесосы</a>
+          <a href="#catalog"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="3" width="12" height="18" rx="6"/><path d="M12 8v4"/></svg>Очистители воздуха</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#catalog">Аксессуары <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></a>
+        <div class="menu">
+          <p class="menu-h">Аксессуары</p>
+          <a href="#catalog"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="3"/></svg>Чехлы и плёнки</a>
+          <a href="#catalog"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-3 8h4l-3 8"/></svg>Зарядные устройства</a>
+          <a href="#catalog"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7a3 3 0 0 1 6 0v6a3 3 0 0 0 6 0"/></svg>Кабели</a>
+          <a href="#catalog"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="16" rx="2"/><line x1="9" y1="8" x2="15" y2="8"/></svg>Power bank</a>
+          <a href="#catalog"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="3" width="12" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="6"/><line x1="13" y1="3" x2="13" y2="6"/></svg>Карты памяти</a>
+        </div>
+      </div>
+    </div>
+    <div class="nav-grp center">
+      <div class="nav-item">
+        <a href="#catalog">Apple <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></a>
+        <div class="menu">
+          <p class="menu-h">Apple</p>
+          <div class="m2">
+            <a href="#catalog"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2.5"/><line x1="10.5" y1="19" x2="13.5" y2="19"/></svg>iPhone <svg class="chev" fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path d="m9 6 6 6-6 6"/></svg></a>
+            <div class="submenu"><a href="#catalog">iPhone 17 Pro Max</a><a href="#catalog">iPhone 17 Pro</a><a href="#catalog">iPhone 17</a><a href="#catalog">iPhone 16</a><a href="#catalog">iPhone SE</a></div>
+          </div>
+          <div class="m2">
+            <a href="#catalog"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/></svg>MacBook <svg class="chev" fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path d="m9 6 6 6-6 6"/></svg></a>
+            <div class="submenu"><a href="#catalog">MacBook Air 13"</a><a href="#catalog">MacBook Air 15"</a><a href="#catalog">MacBook Pro 14"</a><a href="#catalog">MacBook Pro 16"</a></div>
+          </div>
+          <div class="m2">
+            <a href="#catalog"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><line x1="10" y1="18" x2="14" y2="18"/></svg>iPad <svg class="chev" fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path d="m9 6 6 6-6 6"/></svg></a>
+            <div class="submenu"><a href="#catalog">iPad Pro</a><a href="#catalog">iPad Air</a><a href="#catalog">iPad</a><a href="#catalog">iPad mini</a></div>
+          </div>
+          <div class="m2">
+            <a href="#catalog"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>iMac и Mac <svg class="chev" fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path d="m9 6 6 6-6 6"/></svg></a>
+            <div class="submenu"><a href="#catalog">iMac</a><a href="#catalog">Mac mini</a><a href="#catalog">Mac Studio</a><a href="#catalog">Mac Pro</a></div>
+          </div>
+          <div class="m2">
+            <a href="#catalog"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="6"/><path d="M12 9v3l2 1"/></svg>Apple Watch <svg class="chev" fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path d="m9 6 6 6-6 6"/></svg></a>
+            <div class="submenu"><a href="#catalog">Watch Ultra 2</a><a href="#catalog">Watch Series 10</a><a href="#catalog">Watch SE</a></div>
+          </div>
+          <div class="m2">
+            <a href="#catalog"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/></svg>AirPods <svg class="chev" fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path d="m9 6 6 6-6 6"/></svg></a>
+            <div class="submenu"><a href="#catalog">AirPods Pro 3</a><a href="#catalog">AirPods 4</a><a href="#catalog">AirPods Max</a></div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#catalog">Samsung <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></a>
+        <div class="menu">
+          <p class="menu-h">Samsung</p>
+          <div class="m2">
+            <a href="#catalog"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2.5"/><line x1="10.5" y1="19" x2="13.5" y2="19"/></svg>Galaxy S <svg class="chev" fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path d="m9 6 6 6-6 6"/></svg></a>
+            <div class="submenu"><a href="#catalog">Galaxy S25 Ultra</a><a href="#catalog">Galaxy S25+</a><a href="#catalog">Galaxy S25</a><a href="#catalog">Galaxy S24 FE</a></div>
+          </div>
+          <div class="m2">
+            <a href="#catalog"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="7" height="18" rx="1.5"/><rect x="13" y="3" width="7" height="18" rx="1.5"/></svg>Galaxy Z Fold | Flip <svg class="chev" fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path d="m9 6 6 6-6 6"/></svg></a>
+            <div class="submenu"><a href="#catalog">Galaxy Z Fold6</a><a href="#catalog">Galaxy Z Flip6</a></div>
+          </div>
+          <div class="m2">
+            <a href="#catalog"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><line x1="10" y1="18" x2="14" y2="18"/></svg>Galaxy Tab <svg class="chev" fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path d="m9 6 6 6-6 6"/></svg></a>
+            <div class="submenu"><a href="#catalog">Tab S10 Ultra</a><a href="#catalog">Tab S10+</a><a href="#catalog">Tab A9+</a></div>
+          </div>
+          <div class="m2">
+            <a href="#catalog"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/></svg>Galaxy Book <svg class="chev" fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path d="m9 6 6 6-6 6"/></svg></a>
+            <div class="submenu"><a href="#catalog">Galaxy Book4 Pro</a><a href="#catalog">Galaxy Book4</a><a href="#catalog">Galaxy Book4 Edge</a></div>
+          </div>
+          <div class="m2">
+            <a href="#catalog"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="6"/><path d="M12 9v3l2 1"/></svg>Galaxy Watch <svg class="chev" fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path d="m9 6 6 6-6 6"/></svg></a>
+            <div class="submenu"><a href="#catalog">Watch7</a><a href="#catalog">Watch Ultra</a><a href="#catalog">Watch FE</a></div>
+          </div>
+          <div class="m2">
+            <a href="#catalog"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/></svg>Galaxy Buds <svg class="chev" fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path d="m9 6 6 6-6 6"/></svg></a>
+            <div class="submenu"><a href="#catalog">Buds3 Pro</a><a href="#catalog">Buds3</a><a href="#catalog">Buds FE</a></div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#catalog">Dyson <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></a>
+        <div class="menu">
+          <p class="menu-h">Dyson</p>
+          <div class="m2">
+            <a href="#catalog"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v9"/><path d="M12 12a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/><path d="M9 5l3-2 3 2"/></svg>Стайлеры Airwrap <svg class="chev" fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path d="m9 6 6 6-6 6"/></svg></a>
+            <div class="submenu"><a href="#catalog">Airwrap Complete Long</a><a href="#catalog">Airwrap Origin</a></div>
+          </div>
+          <div class="m2">
+            <a href="#catalog"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h6l-1 8H6z"/><path d="M8 11v9a1.5 1.5 0 0 0 3 0"/></svg>Фены Supersonic <svg class="chev" fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path d="m9 6 6 6-6 6"/></svg></a>
+            <div class="submenu"><a href="#catalog">Supersonic Nural</a><a href="#catalog">Supersonic Origin</a></div>
+          </div>
+          <div class="m2">
+            <a href="#catalog"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6l1 7H8z"/><path d="M10 10v8a2 2 0 0 0 4 0v-8"/></svg>Пылесосы V15 | V12 <svg class="chev" fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path d="m9 6 6 6-6 6"/></svg></a>
+            <div class="submenu"><a href="#catalog">V15 Detect</a><a href="#catalog">V12 Detect Slim</a><a href="#catalog">V8 Absolute</a></div>
+          </div>
+          <div class="m2">
+            <a href="#catalog"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="7"/><circle cx="12" cy="13" r="2"/></svg>Роботы-пылесосы <svg class="chev" fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path d="m9 6 6 6-6 6"/></svg></a>
+            <div class="submenu"><a href="#catalog">Dyson 360 Vis Nav</a></div>
+          </div>
+          <div class="m2">
+            <a href="#catalog"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="3" width="12" height="18" rx="6"/><path d="M12 8v4"/></svg>Очистители воздуха <svg class="chev" fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path d="m9 6 6 6-6 6"/></svg></a>
+            <div class="submenu"><a href="#catalog">Purifier Cool</a><a href="#catalog">Purifier Hot+Cool</a><a href="#catalog">Purifier Humidify+Cool</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="nav-grp right">
+      <a href="#catalog" class="hot">Скидки</a>
+      <a href="#catalog">Новинки</a>
+      <a href="#catalog">Популярное</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO SLIDER -->
+<section class="hero">
+  <div class="wrap">
+    <div class="slider" aria-roledescription="карусель">
+      <div class="slides" id="slides">
+        <div class="slide s1">
+          <div class="copy">
+            <span class="kicker">Новинка</span>
+            <h2>MacBook Air M4</h2>
+            <p>Новый чип M4 и 15-дюймовый дисплей Liquid Retina. Рассрочка 0% и гарантия.</p>
+            <button class="btn btn-primary" type="button">Купить от 118 864 ₽</button>
+          </div>
+          <div class="visual"><span class="glow"></span><img class="hero-photo" src="images/hero-macbook.png" alt="MacBook Air M4" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><svg style="display:none" fill="none" viewBox="0 0 24 24" stroke-width="1"><rect x="3" y="4" width="18" height="13" rx="2"/><line x1="2" y1="21" x2="22" y2="21"/></svg></div>
+        </div>
+        <div class="slide s2">
+          <div class="copy">
+            <span class="kicker">Trade In</span>
+            <h2>Сдай старое — забери новое</h2>
+            <p>Оценим ваше устройство за 15 минут и вычтем до 40 000 ₽ из цены покупки.</p>
+            <button class="btn" type="button" style="background:#FFE08A;color:var(--green)">Оценить устройство</button>
+          </div>
+          <div class="visual"><span class="glow"></span><img class="hero-photo" src="images/hero-phone.png" alt="Trade In" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><svg style="display:none" fill="none" viewBox="0 0 24 24" stroke-width="1"><path d="M4 4v6h6M20 20v-6h-6M20 8a8 8 0 0 0-14-2M4 16a8 8 0 0 0 14 2"/></svg></div>
+        </div>
+        <div class="slide s3">
+          <div class="copy">
+            <span class="kicker">Хит</span>
+            <h2>iPad Pro M5</h2>
+            <p>Дисплей Liquid Retina XDR и чип M5. Проверка и гарантия при вас.</p>
+            <button class="btn btn-blue" type="button">Купить от 88 066 ₽</button>
+          </div>
+          <div class="visual"><span class="glow"></span><img class="hero-photo" src="images/hero-ipad.png" alt="iPad Pro M5" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><svg style="display:none" fill="none" viewBox="0 0 24 24" stroke-width="1"><rect x="7" y="2" width="10" height="20" rx="2.5"/><line x1="10.5" y1="19" x2="13.5" y2="19"/></svg></div>
+        </div>
+      </div>
+      <button class="s-arrow prev" id="prev" aria-label="Назад"><svg fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path d="M15 6l-6 6 6 6"/></svg></button>
+      <button class="s-arrow next" id="next" aria-label="Вперёд"><svg fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path d="M9 6l6 6-6 6"/></svg></button>
+      <div class="dots" id="dots"></div>
+    </div>
+  </div>
+</section>
+
+<!-- RECOMMENDATIONS -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head reveal"><div><span class="eyebrow" style="color:var(--green-3);font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;display:block;margin-bottom:.4rem">Подобрано для вас</span><h2>Рекомендуем вам</h2></div><a href="#catalog">Смотреть все <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div>
+    <div class="grid" id="recommended"></div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="catalog" class="block">
+  <div class="wrap">
+    <div class="sec-head reveal"><h2>Хиты продаж</h2><a href="#">Весь каталог <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div>
+    <div class="grid" id="products"></div>
+  </div>
+</section>
+
+<!-- TRADE-IN PROMO -->
+<section class="block">
+  <div class="wrap">
+    <div class="promo-band reveal">
+      <div>
+        <span class="kicker">Trade In</span>
+        <h2>Новое — дешевле на стоимость старого</h2>
+        <p>Принесите прежнее устройство — оценим при вас за 15 минут и сразу вычтем из чека. До 40 000 ₽, без доплат.</p>
+        <button class="btn" type="button" style="background:#fff;color:var(--green)">Оценить устройство</button>
+      </div>
+      <div class="psteps">
+        <div class="pstep"><b>1</b><span>Онлайн-оценка за 2 минуты</span></div>
+        <div class="pstep"><b>2</b><span>Проверка в магазине за 15 минут</span></div>
+        <div class="pstep"><b>3</b><span>Скидка сразу в чеке</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="top">
+      <div><a class="logo" href="#" style="color:#fff" aria-label="СВОИ">
+        <svg class="logo-mark" viewBox="0 0 210 120" role="img" aria-label="СВОИ">
+          <path d="M75.1 32.2 A32 32 0 1 0 75.1 71.8" fill="none" stroke="currentColor" stroke-width="22" stroke-linecap="round"/>
+          <circle cx="56" cy="52" r="14" fill="currentColor"/>
+          <circle cx="88" cy="52" r="6" fill="currentColor"/><circle cx="101" cy="52" r="4.8" fill="currentColor"/>
+          <circle cx="114" cy="52" r="3.84" fill="currentColor"/><circle cx="127" cy="52" r="3.07" fill="#34897A"/>
+          <g transform="translate(86 83) scale(0.5 0.648)"><text x="0" y="0" font-family="Onest, sans-serif" font-weight="800" font-size="40" letter-spacing="-1.5" fill="currentColor">ВОИ</text></g>
+        </svg>
+      </a><p style="margin-top:1rem;max-width:30ch;font-size:.88rem">Магазин оригинальной техники. С 2018 года: магазины в Москве и доставка по всей России.</p></div>
+      <div><h4>Каталог</h4><ul><li><a href="#catalog">Смартфоны</a></li><li><a href="#catalog">Ноутбуки</a></li><li><a href="#catalog">Для дома</a></li><li><a href="#catalog">Аксессуары</a></li></ul></div>
+      <div><h4>Покупателям</h4><ul><li><a href="#">Доставка</a></li><li><a href="#">Гарантия</a></li><li><a href="#">Trade In</a></li><li><a href="#">Рассрочка 0%</a></li></ul></div>
+      <div><h4>Контакты</h4><ul><li><a href="tel:+79936221231" style="color:#fff;font-weight:800;font-size:1.05rem">+7 (993) 622-12-31</a></li><li>Ежедневно 10:00–22:00</li><li>Москва, ул. Барклая, 4</li></ul></div>
+    </div>
+    <div class="bot"><p>© 2018–2026 СВОИ</p><p>Политика конфиденциальности · Оферта</p></div>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite">
+  <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg><span>Товар добавлен в корзину</span>
+</div>
+
+<script>
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const rub = n => new Intl.NumberFormat('ru-RU').format(n);
+
+/* ---- products ---- */
+const P = [
+  {b:'Apple',n:'MacBook Air 15" M4',price:118864,old:0,badge:'Хит',sale:false,icon:'laptop',img:'macbook-air.jpg',date:'03.2025',color:'Сияющая звезда',hex:'#e8e3d6'},
+  {b:'Apple',n:'iPad Pro 11" M5',price:88066,old:0,badge:'Новинка',sale:false,icon:'pad',img:'ipad-pro.jpg',date:'2025',color:'Серый космос',hex:'#3a3a3c'},
+  {b:'Apple',n:'AirPods 4 (ANC)',price:15413,old:0,badge:'',sale:false,icon:'buds',img:'airpods4-anc.jpg',date:'09.2024',color:'Белый',hex:'#f2f2f2'},
+  {b:'Apple',n:'Apple Watch Series 11 42 мм',price:27926,old:0,badge:'Хит',sale:false,icon:'watch',img:'apple-watch-11.jpg',date:'09.2025',color:'Тёмная ночь',hex:'#2a2a2a'},
+  {b:'Xiaomi',n:'Xiaomi 17 Ultra 16/512 ГБ',price:86708,old:0,badge:'',sale:false,icon:'phone',img:'xiaomi-17-ultra.jpg',date:'2025',color:'Чёрный',hex:'#1f1f1f'},
+  {b:'Sony',n:'PlayStation 5 Slim',price:50236,old:0,badge:'',sale:false,icon:'pad',img:'ps5-slim.jpg',date:'2024',color:'Белый',hex:'#ededed'},
+  {b:'Dyson',n:'Пылесос V16 Piston Animal',price:96699,old:0,badge:'Новинка',sale:false,icon:'vac',img:'dyson-v16.png',date:'2025',color:'Никель / синий',hex:'#4a6b8a'},
+  {b:'Dyson',n:'Стайлер Airwrap i.d. Long',price:38305,old:42990,badge:'−11%',sale:true,icon:'fan',img:'dyson-airwrap-id.png',date:'2024',color:'Никель',hex:'#b9b2a6'},
+];
+const I = {
+  phone:'<rect x="7" y="2" width="10" height="20" rx="2.5"/><line x1="10.5" y1="19" x2="13.5" y2="19"/>',
+  laptop:'<rect x="3" y="4" width="18" height="13" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/>',
+  fan:'<path d="M12 3v10"/><path d="M12 13a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/><path d="M9 5l3-2 3 2"/>',
+  buds:'<circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>',
+  vac:'<path d="M9 3h6l1 7H8z"/><path d="M10 10v8a2 2 0 0 0 4 0v-8"/>',
+  watch:'<circle cx="12" cy="12" r="7"/><path d="M12 9v3l2 2"/>',
+  pad:'<rect x="4" y="7" width="16" height="10" rx="3"/><line x1="16" y1="11" x2="16" y2="13"/>',
+};
+const cardHTML = p=>`
+  <article class="card reveal">
+    <div class="card-img">
+      ${p.badge?`<span class="p-badge ${p.sale?'sale':''}">${p.badge}</span>`:''}
+      <button class="heart" type="button" aria-label="В избранное"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M12 21s-7-4.5-9.5-9A5 5 0 0 1 12 6a5 5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9z"/></svg></button>
+      <img class="p-photo" src="images/${p.img}"${p.ny?` style="--ny:${p.ny}"`:''} alt="${p.n}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <svg class="p-fallback" fill="none" viewBox="0 0 24 24" stroke-width="1.2" style="display:none">${I[p.icon]}</svg>
+      <div class="quick"><button class="btn btn-primary addcart" type="button" data-price="${p.price}" data-name="${p.n}" data-img="${p.img}">В корзину</button></div>
+    </div>
+    <div class="card-body">
+      <span class="card-brand">${p.b}</span>
+      <h3>${p.n}</h3>
+      <ul class="metrics">
+        <li><span>Релиз</span><b>${p.date}</b></li>
+        <li><span>Цвет</span><b><i class="sw" style="background:${p.hex}"></i>${p.color}</b></li>
+        <li><span>Наличие</span><b class="ok">В наличии</b></li>
+      </ul>
+      <div class="price-row"><b>${rub(p.price)} ₽</b>${p.old?`<s>${rub(p.old)} ₽</s>`:''}</div>
+    </div>
+  </article>`;
+document.getElementById('products').innerHTML = P.map(cardHTML).join('');
+const R = [
+  {b:'Apple',n:'iPad mini (2024) 512 ГБ',price:67599,old:0,badge:'',sale:false,icon:'pad',img:'ipad-mini.jpg',date:'2024',color:'Тёмная ночь',hex:'#2a2a2a',ny:'-7%'},
+  {b:'Apple',n:'AirPods 4',price:13652,old:0,badge:'',sale:false,icon:'buds',img:'airpods4-anc.jpg',date:'09.2024',color:'Белый',hex:'#f2f2f2'},
+  {b:'Garmin',n:'Fenix 8 47 мм AMOLED',price:93972,old:0,badge:'',sale:false,icon:'watch',img:'garmin-fenix.jpg',date:'2024',color:'Графит',hex:'#3a3a3a'},
+  {b:'Яндекс',n:'Станция Миди',price:12632,old:0,badge:'Хит',sale:false,icon:'fan',img:'yandex-midi.jpg',date:'2024',color:'Серый',hex:'#8a8a8a'},
+];
+document.getElementById('recommended').innerHTML = R.map(cardHTML).join('');
+
+/* ---- reveal + stagger ---- */
+document.querySelectorAll('.grid, .cats').forEach(g=>[...g.children].forEach((el,i)=>el.style.setProperty('--d', Math.min(i,7)*55+'ms')));
+const io = new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ---- header shadow ---- */
+const hd=document.getElementById('mainHeader');
+addEventListener('scroll',()=>hd.classList.toggle('scrolled',scrollY>4),{passive:true});
+
+/* ---- cart / fav / toast ---- */
+let fav=0;
+const cart=[];
+const cartBadge=document.getElementById('cartBadge'),favBadge=document.getElementById('favBadge'),cartSum=document.getElementById('cartSum');
+const cartWrap=document.getElementById('cartWrap'),cartItemsEl=document.getElementById('cartItems'),cartTotalEl=document.getElementById('cartTotal');
+const toast=document.getElementById('toast');let tT;
+const bump=el=>{el.classList.remove('pulsing');void el.offsetWidth;el.classList.add('pulsing');};
+function renderCart(){
+  const count=cart.reduce((s,i)=>s+i.qty,0), sum=cart.reduce((s,i)=>s+i.price*i.qty,0);
+  cartBadge.textContent=count; cartSum.textContent=rub(sum); cartTotalEl.textContent=rub(sum)+' ₽';
+  cartWrap.classList.toggle('has-items',count>0);
+  cartItemsEl.innerHTML=cart.map(i=>`
+    <div class="cart-item">
+      <div class="ci-img"><img src="images/${i.img}" alt="" onerror="this.style.display='none'"></div>
+      <div class="ci-info"><p class="ci-name">${i.name}</p><span class="ci-qty">${i.qty} шт · ${rub(i.price)} ₽</span></div>
+      <div class="ci-price">${rub(i.price*i.qty)} ₽</div>
+    </div>`).join('');
+}
+document.addEventListener('click',ev=>{
+  const add=ev.target.closest('.addcart');
+  if(add){
+    const name=add.dataset.name, price=+add.dataset.price, img=add.dataset.img;
+    const ex=cart.find(i=>i.name===name);
+    if(ex) ex.qty++; else cart.push({name,price,img,qty:1});
+    renderCart(); bump(cartBadge);
+    toast.classList.add('show'); clearTimeout(tT); tT=setTimeout(()=>toast.classList.remove('show'),1900);
+  }
+  const h=ev.target.closest('.heart');
+  if(h){const on=h.classList.toggle('on');fav+=on?1:-1;favBadge.textContent=fav;if(on)bump(favBadge);}
+});
+
+/* ---- hero slider ---- */
+const slides=document.getElementById('slides'),dotsWrap=document.getElementById('dots');
+const total=slides.children.length;let idx=0,timer;
+for(let i=0;i<total;i++){const b=document.createElement('button');b.setAttribute('aria-label','Слайд '+(i+1));if(i===0)b.className='active';b.addEventListener('click',()=>{go(i);restart();});dotsWrap.appendChild(b);}
+const dots=[...dotsWrap.children];
+function go(i){idx=(i+total)%total;slides.style.transform=`translateX(-${idx*100}%)`;dots.forEach((d,j)=>d.classList.toggle('active',j===idx));}
+document.getElementById('next').addEventListener('click',()=>{go(idx+1);restart();});
+document.getElementById('prev').addEventListener('click',()=>{go(idx-1);restart();});
+function restart(){clearInterval(timer);if(!reduce)timer=setInterval(()=>go(idx+1),5500);}
+restart();
+</script>
+</body>
+</html>
